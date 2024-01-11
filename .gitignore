@@ -131,3 +131,4 @@ dist
 
 #discord
 config.json
+.env
