@@ -9,8 +9,17 @@ module.exports = (client) => {
                 case 'client':
                     for (const file of eventFiles) {
                         const event = require(`../../events/${folder}/${file}`);
-                        if (event.once) client.once(event.name, (...args) => event.execute(...args, client));
-                        else client.on(event.name, (...args) => event.execute(...args, client));
+                        console.log(`${event.name}`);
+                        if (event.once) {
+                            client.once(event.name, (...args) => event.execute(...args, client));
+                            console.log('once');
+                            console.log(`${event.name} loaded.`);
+                        }
+                        else {
+                            client.on(event.name, (...args) => event.execute(...args, client));
+                            console.log('not once');
+                            console.log(`${event.name} loaded.`);
+                        }
                     }
                     break;
                 default:
