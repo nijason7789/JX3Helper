@@ -1,24 +1,24 @@
-// Require the necessary discord.js classes
-require('dotenv').config();
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+import 'dotenv/config';
+import { Client, GatewayIntentBits, Collection } from 'discord.js';
+import fs from 'fs';
+import initializeBot from './bot.mjs';
 const { token } = process.env;
-const fs = require('fs');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 client.commandArray = [];
+
+// Load functions
 const functionFolders = fs.readdirSync('./src/functions');
 for (const folder of functionFolders) {
 	const functionFiles = fs
 		.readdirSync(`./src/functions/${folder}`)
 		.filter((file) => file.endsWith('.js'));
 	for (const file of functionFiles) {
-		require(`./functions/${folder}/${file}`)(client);
+		import(`./functions/${folder}/${file}`).then((module) => module.default(client));
 	}
-
 }
-
-client.handleCommands();
-client.handleEvents();
+// Load bot module
+initializeBot(client);
 client.login(token);

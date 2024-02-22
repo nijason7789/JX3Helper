@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
+import { SlashCommandBuilder } from 'discord.js';
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('returning Ping'),
@@ -9,7 +9,7 @@ module.exports = {
             fetchReply: true,
         });
 
-        const newMessage = `API latency: ${client.ws.ping}\n Client Ping: ${message.createTimestamp - interaction.createTimestamp}`;
+        const newMessage = `API latency: ${Math.round(client.ws.ping)}\n Client Ping: ${message.createdTimestamp - interaction.createdTimestamp}`;
         await interaction.editReply({
             content: newMessage,
         });

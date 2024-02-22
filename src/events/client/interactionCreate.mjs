@@ -1,11 +1,12 @@
-module.exports = {
+export default {
     name: 'interactionCreate',
     async execute(interaction, client) {
         if (interaction.isCommand()) {
-            console.log('it is a input command!');
+            console.log('it is a command!');
             const { commands } = client;
             const { commandName } = interaction;
             const command = commands.get(commandName);
+            console.log(`${commandName} command triggered.`);
             if (!command) return;
 
             try {
