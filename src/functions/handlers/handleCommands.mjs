@@ -1,5 +1,7 @@
 import { REST, Routes } from 'discord.js';
+import 'dotenv/config';
 import fs from 'fs';
+const { token, clientID, guildID } = process.env;
 
 export default class handleCommands {
     constructor(client) {
@@ -19,9 +21,7 @@ export default class handleCommands {
                 console.log(`Command: ${command.default.data.name} has be through this handler`);
             }
         }
-        const clientID = '1194622455701045248';
-        const guildID = '878903798314201088';
-        const rest = new REST({ version: '9' }).setToken(process.env.token);
+        const rest = new REST({ version: '9' }).setToken(token);
 
         try {
             console.log('Started refreshing application (/) commands.');
